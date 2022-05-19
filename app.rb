@@ -1,0 +1,10 @@
+require('pg')
+require('sinatra')
+require('sinatra/reloader')
+require('./lib/album')
+require('./lib/song')
+require('./lib/artist')
+require('pry')
+also_reload('lib/**/*.rb')
+
+DB =PG.connect({:dbname => "record_store"})
