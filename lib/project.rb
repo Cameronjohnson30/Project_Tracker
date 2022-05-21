@@ -32,4 +32,15 @@ attr_accessor :title
     result = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
     @id = result.first().fetch("id").to_i
   end
+
+  def self.find(id)
+    project = DB.exec("SELECT * FROM projects WHERE id = #{id};").first
+    title = project.fetch("title")
+    id = project.fetch("id").to_i
+    Project.new({:title => title, :id => id})
+  end
+
+  def volunteers
+    Volunteer.find_by_project(self.id)
+  end
 end
