@@ -43,4 +43,13 @@ attr_accessor :title
   def volunteers
     Volunteer.find_by_project(self.id)
   end
+
+  def update(title)
+    @title = title
+    DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
+  end
+
+  def delete
+    DB.exec("DELETE FROM projects WHERE id = #{@id};")
+  end
 end
